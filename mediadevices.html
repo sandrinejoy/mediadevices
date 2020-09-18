@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <title>Media Promise</title>
+    <style>
+        body{
+            margin:0px 0px;
+            font-family: 'Open Sans';font-size: 22px;
+        }
+        .container{
+            display: grid;
+            height: 70vh;
+            grid-template-columns: 40vw auto;
+        }
+        .question{
+            background: #163D5C;
+            line-height: 70vh;
+            text-align: center;
+            color: #fff;
+        }
+        .answer{
+            line-height: 70vh;
+            text-align: center;
+            background: #1F6096;
+
+        }
+        button{
+            width: 100vw;
+            height: 10vh;
+            background: #111;
+            color: #ddd;
+            border: 1px solid transparent;
+        }
+        
+#myProgress {
+    width: 100%;
+    background-color: #ddd;
+  }
+  
+  #myBar {
+    width: 1%;
+    height: 30px;
+    background-color: #4CAF50;
+  }
+    </style>
+</head>
+<body>
+   <div class="container">
+       <div class="question">
+           <h1>
+            <div id="myProgress">
+              <div id="myBar"></div>
+            </div>
+            What's your Name?</h1>
+       </div>
+       <div class="answer">
+           <form action="#">
+               <input type="text"> 
+           </form>
+        </div>
+        <button type="submit">Submit</button>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        const screenpromise = Promise.resolve(navigator.mediaDevices.getDisplayMedia())
+        const campromise = Promise.resolve(navigator.mediaDevices.getUserMedia({audio:true ,video:true}))
+        Promise.all([screenpromise,campromise])
+            .then(values => { 
+              move();
+
+            })
+            .catch(errors =>{
+                alert("Please don't block the permissions !");
+                document.location.reload(true);
+            });
+            
+
+
+
+
+
+
+
+
+            //funpart
+            
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 100);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
+    </script>
+</body>
+</html>
